@@ -1,0 +1,21 @@
+
+<html lang="uk">
+<head>
+    <title>SalesSnake - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_app.css') }}">
+    <script src="{{ url_for('static', filename='scripts_app.js') }}"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navlist center">
+            <li class="navitem"><a class="navbutton" href="{{ url_for('stocks.stocks_page') }}">Stocks</a></li>
+            <li class="navitem"><a class="navbutton" href="{{ url_for('categories.categories_page') }}">Categories</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

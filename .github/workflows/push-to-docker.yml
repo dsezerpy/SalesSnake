@@ -1,0 +1,43 @@
+name: publish-to-docker
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  publish:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out code
+
+      - name: Set version
+        run: echo SS_VERSION=`date +%Y%m%d%H%M` >> $GITHUB_ENV
+
+      - name: Check version
+        run: echo Building version ${{ env.SS_VERSION }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+            platforms: linux/amd64,linux/arm64
+            driver-opts: | 
+              image=moby/buildkit:v0.10.6
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          platforms: linux/arm64,linux/amd64
+          tags: ${{ secrets.DOCKER_USERNAME }}/salessnake:latest,${{ secrets.DOCKER_USERNAME }}/salessnake:${{ env.SS_VERSION }}

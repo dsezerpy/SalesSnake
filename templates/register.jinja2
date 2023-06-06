@@ -1,0 +1,13 @@
+{% extends 'base.jinja2' %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+    <h1 class="center ftext">Please fill the form below to register.</h1>
+    <div class="center form">
+    <form method="post">
+        <input name="mail" class="ffield" type="text" placeholder="e-mail">
+        <input name="passwd" class="ffield" type="password" placeholder="Password" onchange="">
+        <input name="passwd2" class="ffield" type="password" placeholder="Verify Password" onchange="">
+        <input class="button" type="submit" value="Log In">
+    </form>
+    </div>
+{% endblock %}

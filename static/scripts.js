@@ -1,0 +1,3 @@
+function passwd_check() {
+
+}

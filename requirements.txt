@@ -1,2 +1,6 @@
 Flask
 flask-mongoengine
+
+pymongo
+passlib
+pyjwt

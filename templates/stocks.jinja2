@@ -1,0 +1,58 @@
+{% extends 'app_base.jinja2' %}
+{% block title %}Stocks{% endblock %}
+{% block content %}
+    <div class="navbar">
+        <ul class="navlist">
+            <li class="navitem"><a class="navbutton" onclick="openForm()">Add Stock</a></li>
+        </ul>
+    </div>
+    <h2 class="title">Stocks</h2>
+    <div id="addStock" class="center">
+        <div class="form center">
+            <form method="post">
+                <label for="category">Category</label>
+                <select class="ffield" id="category" name="category">
+                    {% for category in cats %}
+                        <option>{{ category }}</option>
+                    {% endfor %}
+                </select>
+                <label for="name">Name</label>
+                <input class="ffield" type="text" id="name" name="name">
+                <label for="unit">Unit</label>
+                <input class="ffield" type="text" id="unit" name="unit">
+                <label for="stock">Stock</label>
+                <input class="ffield" type="number" id="stock" name="stock">
+                <label for="avg_value">Average Value</label>
+                <input class="ffield" type="number" id="avg_value" name="avg_value">
+                <label for="currency">Currency</label>
+                <input class="ffield" type="text" id="currency" name="currency">
+                <div class="fbuttons">
+                    <input class="fbutton" type="reset" onclick="closeForm()" placeholder="Close">
+                    <input class="fbutton" type="submit" placeholder="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table center">
+        <table class="items">
+        <tr class="item header">
+            <td>Category</td>
+            <td>Name</td>
+            <td>Unit</td>
+            <td>Stock</td>
+            <td>Average value</td>
+            <td>Total value</td>
+        </tr>
+        {% for item in stocks %}
+            <tr class="item">
+                <td>{{ item.category }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.unit }}</td>
+                <td>{{ item.stock_amount }}/{{ item.unit }}</td>
+                <td>{{ item.avg_value }}{{ item.currency }}</td>
+                <td>{{ item.total_value }}{{ item.currency }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

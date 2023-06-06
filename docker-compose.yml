@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  salessnake:
+    image: SalesSnake
+    restart: unless-stopped
+    depends_on:
+      - database
+    ports:
+      # Replace 7136 with whichever port you want to connect from
+      - "127.0.0.1:7136:80"
+    environment:
+      # (Required) MongoDB Database Connection String
+      - SS_MONGODB_CONNSTR=mongodb://salessnake:salessnake@database:27017/salessnake
+      # (Required) MongoDB Database
+      - SS_MONGODB_DATABASE=salessnake
+      # (Required) JWT Settings
+      - SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+  database:
+    image: mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: salessnake
+      MONGO_INITDB_ROOT_PASSWORD: salessnake
+      CREATE_DATABASE: true
+    # Recommended: Put the MongoDB files somewhere in your local drive,
+    # so you can copy them to somewhere else if you ever need to
+    volumes:
+      - ./mongo:/data/db
+    command: sh -c 'if [ "$CREATE_DATABASE" = "true" ]; then mongod --bind_ip_all; fi'
