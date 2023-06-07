@@ -17,6 +17,10 @@ def categories_page():
             "user": user["_id"],
             "name": request.form['name'],
         }
+        for i in helpers.database["categories"].find(ni):
+            if i:
+                cats = [name["name"] for name in helpers.database["categories"].find({"user": user["_id"]}).sort("name")]
+                return render_template("categories.jinja2", categories=cats)
         helpers.database["categories"].insert_one(ni)
-    cats = [name["name"] for name in helpers.database["categories"].find({"user": user["_id"]})]
+    cats = [name["name"] for name in helpers.database["categories"].find({"user": user["_id"]}).sort("name")]
     return render_template("categories.jinja2", categories=cats)

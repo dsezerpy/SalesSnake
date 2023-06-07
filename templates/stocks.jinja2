@@ -22,7 +22,7 @@
                 <input class="ffield" type="text" id="unit" name="unit">
                 <label for="stock">Stock</label>
                 <input class="ffield" type="number" id="stock" name="stock">
-                <label for="avg_value">Average Value</label>
+                <label for="avg_value">Price</label>
                 <input class="ffield" type="number" id="avg_value" name="avg_value">
                 <label for="currency">Currency</label>
                 <input class="ffield" type="text" id="currency" name="currency">
@@ -42,6 +42,7 @@
             <td>Stock</td>
             <td>Average value</td>
             <td>Total value</td>
+            <td>Edit</td>
         </tr>
         {% for item in stocks %}
             <tr class="item">
@@ -49,8 +50,10 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.unit }}</td>
                 <td>{{ item.stock_amount }}/{{ item.unit }}</td>
-                <td>{{ item.avg_value }}{{ item.currency }}</td>
-                <td>{{ item.total_value }}{{ item.currency }}</td>
+                <td class="money">{{ item.avg_value }}{{ item.currency }}</td>
+                <td class="money">{{ item.total_value }}{{ item.currency }}</td>
+                <td><button class="btnedit">Edit</button></td>
+                <td hidden="hidden">{{ item.nameid }}</td>
             </tr>
         {% endfor %}
         </table>

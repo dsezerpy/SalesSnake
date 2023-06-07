@@ -14,22 +14,30 @@ def stocks_page():
     if not user:
         return redirect(url_for("authentication.login"))
     if request.method == "POST":
-        if "":
-            pass
+        itemquery={
+            "user": user["_id"],
+            "nameid": request.form["name"].lower(),
+            "category": request.form['category'],
+        }
+        item=helpers.database["stocks"].find_one(itemquery)
+        if item:
+            helpers.database["stocklogs"].insert_one({
+                "item":item["_id"],
+                "price":int(request.form['avg_value']),
+                "amount":int(request.form['stock'])
+            })
         else:
             ni = {
                 "user": user["_id"],
-                "nameid": "",
+                "nameid": request.form["name"].lower(),
                 "category": request.form['category'],
                 "displayname": request.form['name'],
                 "unit": request.form['unit'],
-                "stock_amount": int(request.form['stock']),
-                "avg_value": int(request.form['avg_value']),
                 "currency": request.form['currency']
             }
-            helpers.database["stocks"].insert_one(ni)
-    items = helpers.database["stocks"].find({"user": user["_id"]})
-    items = [helpers.Item(item['category'], item['displayname'], item['unit'], item['currency'], item['stock_amount'],
-                          item['avg_value']) for item in items]
-    cats=[item['name'] for item in helpers.database["categories"].find({"user": user["_id"]})]
-    return render_template("stocks.jinja2", stocks=items,cats=cats)
+            helpers.database["stocklogs"].insert_one({
+                "item": helpers.database["stocks"].insert_one(ni).inserted_id,
+                "price": int(request.form['avg_value']),
+                "amount": int(request.form['stock'])
+            })
+    return render_template("stocks.jinja2", **helpers.process_stocks(user))

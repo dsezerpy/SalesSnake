@@ -15,14 +15,15 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class Item:
     total_value: int
 
-    def __init__(self, category, name, unit, currency, stock_amount, avg_value):
+    def __init__(self, category, name, unit, currency, stock_amount, avg_value, nameid):
         self.category = category
         self.unit = unit
         self.stock_amount = stock_amount
         self.avg_value = avg_value
         self.currency = currency
         self.name = name
-        self.total_value = self.stock_amount * self.avg_value
+        self.total_value = round(self.stock_amount * self.avg_value, 2)
+        self.nameid = nameid
 
 
 def authenticate_user(email: str, password: str):
@@ -76,3 +77,62 @@ def register(user):
     })
     print("succ")
     return 1
+
+
+def process_stocks(user):
+    items = []
+    agragated = database["stocklogs"].aggregate([
+        {
+            '$group': {
+                '_id': '$item',
+                'numerator': {
+                    '$sum': {
+                        '$multiply': [
+                            '$price', '$amount'
+                        ]
+                    }
+                },
+                'denominator': {
+                    '$sum': '$amount'
+                }
+            }
+        }, {
+            '$project': {
+                'average': {
+                    '$divide': [
+                        '$numerator', '$denominator'
+                    ]
+                },
+                'total': {
+                    '$sum': [
+                        '$denominator'
+                    ]
+                }
+            }
+        }, {
+            '$lookup': {
+                'from': 'stocks',
+                'localField': '_id',
+                'foreignField': '_id',
+                'as': 'stock'
+            }
+        }, {
+            '$set': {
+                'stock': {
+                    '$arrayElemAt': [
+                        '$stock', 0
+                    ]
+                }
+            }
+        }, {
+            '$sort': {
+                'stock': 1
+            }
+        }
+    ])
+    for item in agragated:
+        stock_amount, avg_value = item["total"], round(item["average"], 2)
+        items.append(Item(item["stock"]['category'], item["stock"]['displayname'], item["stock"]['unit'],
+                          item["stock"]['currency'], stock_amount, avg_value, item["stock"]["nameid"]))
+    cats = [item['name'] for item in database["categories"].find({"user": user["_id"]})]
+    return {"stocks": items, "cats": cats}

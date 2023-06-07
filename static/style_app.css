@@ -146,3 +146,16 @@ body{
   margin-bottom: 5%;
   z-index: 9;
 }
+
+.btnedit{
+  unset: all;
+  width: 45%;
+  height: 2.5em;
+  border-radius: 1.5em;
+  border: none;
+  margin-top: 10px;
+  text-align: center;
+}
+.money{
+  text-align: right;
+}
