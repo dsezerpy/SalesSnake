@@ -21,7 +21,8 @@ def register():
         print(request.form)
         user = {
             "mail": request.form["mail"],
-            "password": request.form["passwd"]
+            "password": request.form["passwd"],
+            "currency": request.form["currency"]
         }
         """if request.form["orgid"]:
             user["orgid"]=request.form["orgid"]"""

@@ -15,7 +15,7 @@ def categories_page():
     if request.method == "POST":
         ni = {
             "user": user["_id"],
-            "name": request.form['name'],
+            "name": request.form['name'][0:50],
         }
         for i in helpers.database["categories"].find(ni):
             if i:

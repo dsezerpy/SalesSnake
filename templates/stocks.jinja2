@@ -10,22 +10,26 @@
     <div id="addStock" class="center">
         <div class="form center">
             <form method="post">
-                <label for="category">Category</label>
+                <label for="category">Product Category</label>
                 <select class="ffield" id="category" name="category">
                     {% for category in cats %}
                         <option>{{ category }}</option>
                     {% endfor %}
                 </select>
-                <label for="name">Name</label>
-                <input class="ffield" type="text" id="name" name="name">
+                <label for="name">Stock Name</label>
+                <input class="ffield" type="text" id="name" name="name" maxlength="50">
                 <label for="unit">Unit</label>
-                <input class="ffield" type="text" id="unit" name="unit">
-                <label for="stock">Stock</label>
+                <select class="ffield" id="unit" name="unit">
+                    {% for unit in units %}
+                        <option>{{ unit }}</option>
+                    {% endfor %}
+                </select>
+                <label for="stock">Stock Quantity</label>
                 <input class="ffield" type="number" id="stock" name="stock">
-                <label for="avg_value">Price</label>
+                <label for="avg_value">Purchase Price per Unit</label>
                 <input class="ffield" type="number" id="avg_value" name="avg_value">
-                <label for="currency">Currency</label>
-                <input class="ffield" type="text" id="currency" name="currency">
+                <label for="date">Date</label>
+                <input class="ffield" type="date" id="date" name="date" value="{{ today }}" max="{{ today }}">
                 <div class="fbuttons">
                     <input class="fbutton" type="reset" onclick="closeForm()" placeholder="Close">
                     <input class="fbutton" type="submit" placeholder="Add">
@@ -37,25 +41,37 @@
         <table class="items">
         <tr class="item header">
             <td>Category</td>
-            <td>Name</td>
+            <td>Stock Name</td>
             <td>Unit</td>
-            <td>Stock</td>
+            <td>Stock Quantity</td>
             <td>Average value</td>
             <td>Total value</td>
-            <td>Edit</td>
+            <td>Detail</td>
         </tr>
         {% for item in stocks %}
             <tr class="item">
                 <td>{{ item.category }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.unit }}</td>
-                <td>{{ item.stock_amount }}/{{ item.unit }}</td>
-                <td class="money">{{ item.avg_value }}{{ item.currency }}</td>
-                <td class="money">{{ item.total_value }}{{ item.currency }}</td>
-                <td><button class="btnedit">Edit</button></td>
+                <td>{{ item.stock_amount }} {{ item.unit }}</td>
+                <td class="money">{{ item.avg_value }}{{ currency }}</td>
+                <td class="money">{{ item.total_value }}{{ currency }}</td>
+                <td><button class="btnedit" data-target="#test" data-toggle="modal">Detail</button></td>
                 <td hidden="hidden">{{ item.nameid }}</td>
             </tr>
         {% endfor %}
+        <tr class="item">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="money">{{ total_price }}{{ currency }}</td>
+                <td></td>
+            </tr>
         </table>
     </div>
+<div role="dialog" id="test" tabindex="-1" class="test">
+test
+</div>
 {% endblock %}

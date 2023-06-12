@@ -13,16 +13,13 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class Item:
-    total_value: int
-
-    def __init__(self, category, name, unit, currency, stock_amount, avg_value, nameid):
+    def __init__(self, category, name, unit, stock_amount, avg_value, nameid):
         self.category = category
         self.unit = unit
         self.stock_amount = stock_amount
-        self.avg_value = avg_value
-        self.currency = currency
+        self.avg_value = f'{avg_value:.2f}'
         self.name = name
-        self.total_value = round(self.stock_amount * self.avg_value, 2)
+        self.total_value = f'{round(self.stock_amount * avg_value, 2):.2f}'
         self.nameid = nameid
 
 
@@ -81,58 +78,28 @@ def register(user):
 
 def process_stocks(user):
     items = []
-    agragated = database["stocklogs"].aggregate([
-        {
-            '$group': {
-                '_id': '$item',
-                'numerator': {
-                    '$sum': {
-                        '$multiply': [
-                            '$price', '$amount'
-                        ]
-                    }
-                },
-                'denominator': {
-                    '$sum': '$amount'
-                }
-            }
-        }, {
-            '$project': {
-                'average': {
-                    '$divide': [
-                        '$numerator', '$denominator'
-                    ]
-                },
-                'total': {
-                    '$sum': [
-                        '$denominator'
-                    ]
-                }
-            }
-        }, {
-            '$lookup': {
-                'from': 'stocks',
-                'localField': '_id',
-                'foreignField': '_id',
-                'as': 'stock'
-            }
-        }, {
-            '$set': {
-                'stock': {
-                    '$arrayElemAt': [
-                        '$stock', 0
-                    ]
-                }
-            }
-        }, {
-            '$sort': {
-                'stock': 1
-            }
-        }
-    ])
-    for item in agragated:
-        stock_amount, avg_value = item["total"], round(item["average"], 2)
-        items.append(Item(item["stock"]['category'], item["stock"]['displayname'], item["stock"]['unit'],
-                          item["stock"]['currency'], stock_amount, avg_value, item["stock"]["nameid"]))
+    total_price = 0
+    for stock in database["stocks"].find({"user": user["_id"]}):
+        total_price += stock["stock_size"] * stock["average_price"]
+        items.append(
+            Item(
+                stock["category"], stock["displayname"], stock["unit"],
+                stock["stock_size"], stock["average_price"], stock["nameid"]
+            )
+        )
     cats = [item['name'] for item in database["categories"].find({"user": user["_id"]})]
-    return {"stocks": items, "cats": cats}
+    total_price = f"{total_price:.2f}"
+    units = database["units"].find_one({})["units"]
+    today = f"{datetime.today().year}-{datetime.today().month}-{datetime.today().day}"
+    return {"stocks": items, "cats": cats, "total_price": total_price,
+            "currency": user['currency'], "units": units, "today": today}
+
+
+def calc_weighted_avg(existing, new):
+    print(existing)
+    print(new)
+    existing["average_price"] = round(
+        ((existing["average_price"] * existing["stock_size"]) + (int(new["avg_value"]) * int(new["stock"]))) / (
+                existing["stock_size"] + int(new["stock"])), 2)
+    existing["stock_size"] += int(new["stock"])
+    return existing
