@@ -56,54 +56,41 @@
                 <td>{{ item.stock_amount }} {{ item.unit }}</td>
                 <td class="money">{{ item.avg_value }}{{ currency }}</td>
                 <td class="money">{{ item.total_value }}{{ currency }}</td>
-                <td><button class="btnedit"  data-target="#test" data-toggle="modal"> <a href="#modalWindow"> Detail</button></td>
+                <td><button class="btnedit"><a href="#form" class="reset">Detail</a></button></td>
                 <td hidden="hidden">{{ item.nameid }}</td>
             </tr>
         {% endfor %}
         <tr class="item">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="money">{{ total_price }}{{ currency }}</td>
-                <td></td>
+                <td colspan="5">Total price</td>
+                <td class="money" colspan="2">{{ total_price }}{{ currency }}</td>
             </tr>
         </table>
     </div>
 <div role="dialog" id="test" tabindex="-1" class="test">
 
-<div class="container">
-</div>
-<div class="modalWindow">
-<a class="close"> X </a>
-    <div>
-<table class="items">
-    <body>
-        <tr class="item header">
-            <td>&nbsp;</td>
-            <td>Beden</td>
-            <td>Türkçe<br />
-            </td>
-        </tr>
-        <tr class="item">
-            <td>Sinem</td>
-            <td>95</td>
-            <td>80</td>
-        </tr>
-        <tr class="item">
-            <td>Ahmet</td>
-            <td>100</td>
-            <td>65</td>
-        </tr>
-    </body>
-</table>
-<br><br>
-<button type="button"> Edit </button>
-    <button type="button"> Satış </button>
+<div id="form" class="modalWindow">
 
-</p>
-</div>
+    <div>
+        <div class="buttons center">
+        <a href="#" class="reset"> X </a>
+        <button class="btndetail">Edit</button>
+        <button class="btndetail">Satış</button>
+        </div>
+        <div class="table center">
+            <table class="items">
+        <tr class="item header">
+            <td>Date</td>
+            <td>Price</td>
+            <td>Item Amount</td>
+        </tr>
+        <tr class="item">
+            <td>Placeholder</td>
+            <td>Placeholder</td>
+            <td>Placeholder</td>
+        </tr>
+    </table>
+        </div>
+    </div>
 </div>
 </div>
 {% endblock %}

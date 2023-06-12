@@ -230,6 +230,17 @@ body{
   margin-bottom: 5px;
   text-align: center;
 }
+
+.btndetail{
+  unset: all;
+  width: 20%;
+  height: 2.5em;
+  border-radius: 1.5em;
+  border: none;
+  margin: 5px 20px 10px;
+  text-align: center;
+}
+
 .money{
   text-align: right;
 }
@@ -245,42 +256,44 @@ body{
 }
 
 .container{
-margin:0 auto;
-width:80%;
-font-family: verdana,arial,sans-serif;
-font-size:16px;
+  margin:0 auto;
+  width:80%;
+  font-family: verdana,arial,sans-serif;
+  font-size:16px;
 }
 .modalWindow {
-position: fixed;
-font-family: arial,helvetica, sans-serif;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-background: rgba(0, 0, 0, 0.4);
-z-index: 99999;
-opacity:0;
-transition: opacity 400ms linear;
-pointer-events: none;
+  position: fixed;
+  font-family: arial,helvetica, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99999;
+  opacity:0;
+  transition: opacity 400ms linear;
+  pointer-events: none;
 }
 .modalWindow:target {
-opacity:1;
-pointer-events: auto;
+  opacity:1;
+  pointer-events: auto;
 }
 .modalWindow > div {
-width: 400px;
-height: 240px;
-position: relative;
-margin: 10% auto;
-padding: 40px 20px 13px 20px;
-border: solid;
-border-color: black;
-border-width : 2px;
-background: lightskyblue;
-border-radius: 10px;
+  width: 400px;
+  height: 240px;
+  position: relative;
+  margin: 10% auto;
+  padding: 40px 20px 13px 20px;
+  border: 2px solid black;
+  background: lightskyblue;
+  border-radius: 10px;
 }
 
 .close {
   margin-bottom: 2px;
   padding-bottom: 3px;
+}
+
+.reset{
+  text-decoration: none;
 }
