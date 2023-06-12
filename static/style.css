@@ -31,7 +31,7 @@ a:active {
   margin: 0;
   padding: 8px;
   height: 30px;
-  background-color: yellowgreen;
+  background-color: #BFDBF2 ;
 }
 .navbutton{
   font-family: arial, serif;
@@ -52,7 +52,7 @@ body{
 .content{
   width: 100%;
   height: 95%;
-  background-color: darkslateblue;
+  background-color: #AA99F2;
   flex-direction: column;
 }
 .form{
@@ -108,7 +108,7 @@ a:active {
   margin: 0;
   padding: 8px;
   height: 30px;
-  background-color: yellowgreen;
+  background-color: #BFDBF2;
 }
 .navbutton{
   font-family: arial, serif;
@@ -124,7 +124,7 @@ a:active {
 body{
   width: 100%;
   height: 100%;
-  background-color: darkslateblue;
+  background-color: slategray;
 }
 .content{
   width: 100%;
@@ -244,3 +244,43 @@ body{
   background-color: yellow;
 }
 
+.container{
+margin:0 auto;
+width:80%;
+font-family: verdana,arial,sans-serif;
+font-size:16px;
+}
+.modalWindow {
+position: fixed;
+font-family: arial,helvetica, sans-serif;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background: rgba(0, 0, 0, 0.4);
+z-index: 99999;
+opacity:0;
+transition: opacity 400ms linear;
+pointer-events: none;
+}
+.modalWindow:target {
+opacity:1;
+pointer-events: auto;
+}
+.modalWindow > div {
+width: 400px;
+height: 240px;
+position: relative;
+margin: 10% auto;
+padding: 40px 20px 13px 20px;
+border: solid;
+border-color: black;
+border-width : 2px;
+background: lightskyblue;
+border-radius: 10px;
+}
+
+.close {
+  margin-bottom: 2px;
+  padding-bottom: 3px;
+}

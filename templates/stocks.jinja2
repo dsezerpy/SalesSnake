@@ -56,7 +56,7 @@
                 <td>{{ item.stock_amount }} {{ item.unit }}</td>
                 <td class="money">{{ item.avg_value }}{{ currency }}</td>
                 <td class="money">{{ item.total_value }}{{ currency }}</td>
-                <td><button class="btnedit" data-target="#test" data-toggle="modal">Detail</button></td>
+                <td><button class="btnedit"  data-target="#test" data-toggle="modal"> <a href="#modalWindow"> Detail</button></td>
                 <td hidden="hidden">{{ item.nameid }}</td>
             </tr>
         {% endfor %}
@@ -72,6 +72,38 @@
         </table>
     </div>
 <div role="dialog" id="test" tabindex="-1" class="test">
-test
+
+<div class="container">
+</div>
+<div class="modalWindow">
+<a class="close"> X </a>
+    <div>
+<table class="items">
+    <body>
+        <tr class="item header">
+            <td>&nbsp;</td>
+            <td>Beden</td>
+            <td>Türkçe<br />
+            </td>
+        </tr>
+        <tr class="item">
+            <td>Sinem</td>
+            <td>95</td>
+            <td>80</td>
+        </tr>
+        <tr class="item">
+            <td>Ahmet</td>
+            <td>100</td>
+            <td>65</td>
+        </tr>
+    </body>
+</table>
+<br><br>
+<button type="button"> Edit </button>
+    <button type="button"> Satış </button>
+
+</p>
+</div>
+</div>
 </div>
 {% endblock %}
