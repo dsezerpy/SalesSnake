@@ -96,8 +96,6 @@ def process_stocks(user):
 
 
 def calc_weighted_avg(existing, new):
-    print(existing)
-    print(new)
     existing["average_price"] = round(
         ((existing["average_price"] * existing["stock_size"]) + (int(new["avg_value"]) * int(new["stock"]))) / (
                 existing["stock_size"] + int(new["stock"])), 2)
