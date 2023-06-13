@@ -3,12 +3,13 @@
 {% block content %}
     <div class="navbar">
         <ul class="navlist">
-            <li class="navitem"><a class="navbutton" onclick="openForm()">Add Stock</a></li>
+            <li class="navitem"><a class="navbutton" href="#addStock">Add Stock</a></li>
         </ul>
     </div>
     <h2 class="title">Stocks</h2>
-    <div id="addStock" class="center">
+    <div id="addStock" class="modalWindow">
         <div class="form center">
+
             <form method="post">
                 <label for="category">Product Category</label>
                 <select class="ffield" id="category" name="category">
@@ -31,7 +32,7 @@
                 <label for="date">Date</label>
                 <input class="ffield" type="date" id="date" name="date" value="{{ today }}" max="{{ today }}">
                 <div class="fbuttons">
-                    <input class="fbutton" type="reset" onclick="closeForm()" placeholder="Close">
+                    <a href="#" class="fbuttons"><button class="fbutton" >Close</button></a>
                     <input class="fbutton" type="submit" placeholder="Add">
                 </div>
             </form>

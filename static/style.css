@@ -215,7 +215,6 @@ body{
 }
 
 #addStock {
-  display: none;
   margin-bottom: 5%;
   z-index: 9;
 }
@@ -280,10 +279,10 @@ body{
 }
 .modalWindow > div {
   width: 400px;
-  height: 240px;
+  height: 500px;
   position: relative;
   margin: 10% auto;
-  padding: 40px 20px 13px 20px;
+  padding: 20px 40px 13px 45px;
   border: 2px solid black;
   background: lightskyblue;
   border-radius: 10px;
@@ -296,4 +295,12 @@ body{
 
 .reset{
   text-decoration: none;
+}
+
+.CloseButton{
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: menulist-button;
+  text-decoration: none;
+  color: initial;
 }
