@@ -8,24 +8,6 @@
     </div>
     <h2 class="title">Stocks</h2>
     <div id="addStock" class="center">
-    <div class="buttons center">
-        <a href="#" class="reset"> X </a>
-        <button class="btndetail">Edit</button>
-        <button class="btndetail">Satış</button>
-        </div>
-        <div class="table center">
-            <table class="items">
-        <tr class="item header">
-            <td>Date</td>
-            <td>Price</td>
-            <td>Item Amount</td>
-        </tr>
-        <tr class="item">
-            <td>Placeholder</td>
-            <td>Placeholder</td>
-            <td>Placeholder</td>
-        </tr>
-    </table>
         <div class="form center">
             <form method="post">
                 <label for="category">Product Category</label>
@@ -57,58 +39,54 @@
     </div>
     <div class="table center">
         <table class="items">
-        <tr class="item header">
-            <td>Category</td>
-            <td>Stock Name</td>
-            <td>Unit</td>
-            <td>Stock Quantity</td>
-            <td>Average value</td>
-            <td>Total value</td>
-            <td>Detail</td>
-        </tr>
-        {% for item in stocks %}
-            <tr class="item">
-                <td>{{ item.category }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.unit }}</td>
-                <td>{{ item.stock_amount }} {{ item.unit }}</td>
-                <td class="money">{{ item.avg_value }}{{ currency }}</td>
-                <td class="money">{{ item.total_value }}{{ currency }}</td>
-                <td><button class="btnedit"><a href="#form" class="reset">Detail</a></button></td>
-                <td hidden="hidden">{{ item.nameid }}</td>
+            <tr class="item header">
+                <td>Category</td>
+                <td>Stock Name</td>
+                <td>Unit</td>
+                <td>Stock Quantity</td>
+                <td>Average value</td>
+                <td>Total value</td>
+                <td>Detail</td>
             </tr>
-        {% endfor %}
-        <tr class="item">
-                <td colspan="5">Total price</td>
-                <td class="money" colspan="2">{{ total_price }}{{ currency }}</td>
+            {% for item in stocks %}
+                <tr class="item">
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.unit }}</td>
+                    <td>{{ item.stock_amount }} {{ item.unit }}</td>
+                    <td class="money">{{ item.avg_value }}{{ currency }}</td>
+                    <td class="money">{{ item.total_value }}{{ currency }}</td>
+                    <td><button class="btnedit"><a href="#form" class="reset">Detail</a></button></td>
+                    <td hidden="hidden">{{ item.nameid }}</td>
+                </tr>
+            {% endfor %}
+            <tr class="item">
+                    <td colspan="5">Total price</td>
+                    <td class="money" colspan="2">{{ total_price }}{{ currency }}</td>
             </tr>
         </table>
     </div>
-<div role="dialog" id="test" tabindex="-1" class="test">
-
 <div id="form" class="modalWindow">
-
     <div>
         <div class="buttons center">
-        <a href="#" class="reset"> X </a>
-        <button class="btndetail">Edit</button>
-        <button class="btndetail">Satış</button>
+            <a href="#" class="reset"> X </a>
+            <button class="btndetail">Edit</button>
+            <button class="btndetail">Satış</button>
         </div>
         <div class="table center">
             <table class="items">
-        <tr class="item header">
-            <td>Date</td>
-            <td>Price</td>
-            <td>Item Amount</td>
-        </tr>
-        <tr class="item">
-            <td>Placeholder</td>
-            <td>Placeholder</td>
-            <td>Placeholder</td>
-        </tr>
-    </table>
+                <tr class="item header">
+                    <td>Date</td>
+                    <td>Price</td>
+                    <td>Item Amount</td>
+                </tr>
+                <tr class="item">
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                </tr>
+            </table>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}
