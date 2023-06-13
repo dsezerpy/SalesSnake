@@ -50,8 +50,9 @@ def stocks_page():
     return render_template("stocks.jinja2", **helpers.process_stocks(user))
 
 
-@stocks.route("/stocks/detail/{nameid}", defaults={"nameid": ""})
+@stocks.route("/stocks/detail/<nameid>")
 def get_detail(nameid):
+    print(nameid)
     items = []
     if nameid == "":
         return jsonify("wrong format")
@@ -78,7 +79,6 @@ def get_detail(nameid):
             break
     else:
         return jsonify("item not found")
-
     for item in stock_logs["logs"]:
         items.append({
             "date": item["date"],

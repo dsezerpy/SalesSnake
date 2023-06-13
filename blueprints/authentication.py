@@ -18,7 +18,6 @@ def login():
 @authentication.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        print(request.form)
         user = {
             "mail": request.form["mail"],
             "password": request.form["passwd"],

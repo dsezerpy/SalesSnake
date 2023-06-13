@@ -3,13 +3,12 @@
 {% block content %}
     <div class="navbar">
         <ul class="navlist">
-            <li class="navitem"><a class="navbutton" href="#addStock">Add Stock</a></li>
+            <li class="navitem"><a class="navbutton" onclick="toggle_add_form()">Add Stock</a></li>
         </ul>
     </div>
     <h2 class="title">Stocks</h2>
-    <div id="addStock" class="modalWindow">
+    <div id="addStock" class="modalWindow" style="display: none">
         <div class="form center">
-
             <form method="post">
                 <label for="category">Product Category</label>
                 <select class="ffield" id="category" name="category">
@@ -32,8 +31,8 @@
                 <label for="date">Date</label>
                 <input class="ffield" type="date" id="date" name="date" value="{{ today }}" max="{{ today }}">
                 <div class="fbuttons">
-                    <a href="#" class="fbuttons"><button class="fbutton" >Close</button></a>
-                    <input class="fbutton" type="submit" placeholder="Add">
+                    <button type="reset" class="fbutton" onclick="toggle_add_form()">Close</button>
+                    <button class="fbutton">Add</button>
                 </div>
             </form>
         </div>
@@ -57,8 +56,7 @@
                     <td>{{ item.stock_amount }} {{ item.unit }}</td>
                     <td class="money">{{ item.avg_value }}{{ currency }}</td>
                     <td class="money">{{ item.total_value }}{{ currency }}</td>
-                    <td><button class="btnedit"><a href="#form" class="reset">Detail</a></button></td>
-                    <td hidden="hidden">{{ item.nameid }}</td>
+                    <td><button class="btnedit" onclick="toggle_detail('{{ item.nameid }}')">Detail</button></td>
                 </tr>
             {% endfor %}
             <tr class="item">
@@ -67,27 +65,17 @@
             </tr>
         </table>
     </div>
-<div id="form" class="modalWindow">
+<div id="detailform" style="display: none;" class="modalWindow">
     <div>
         <div class="buttons center">
-            <a href="#" class="reset"> X </a>
-            <button class="btndetail">Edit</button>
-            <button class="btndetail">Satış</button>
+            <button class="btndetail" onclick="toggle_detail()">X</button>
+            <button class="btndetail" onclick="toggle_edit()">Edit</button>
+            <button class="btndetail" onclick="toggle_sale()">Satış</button>
         </div>
-        <div class="table center">
-            <table class="items">
-                <tr class="item header">
-                    <td>Date</td>
-                    <td>Price</td>
-                    <td>Item Amount</td>
-                </tr>
-                <tr class="item">
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                </tr>
-            </table>
+        <div class="table center" id="itemhistory">
+
         </div>
     </div>
 </div>
+
 {% endblock %}

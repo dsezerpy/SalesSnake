@@ -70,7 +70,8 @@ def register(user):
         return 0
     database["users"].insert_one({
         "email": user["mail"],
-        "password": get_password_hash(user["password"])
+        "password": get_password_hash(user["password"]),
+        "currency": user["currency"]
     })
     print("succ")
     return 1
